@@ -16,4 +16,7 @@ export interface SearchResultsProps {
   isFetching: boolean;
   isError: boolean;
   error: string | null;
+  page: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }
