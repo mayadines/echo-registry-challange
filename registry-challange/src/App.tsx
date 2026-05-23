@@ -1,15 +1,26 @@
-import "./App.css";
+import { useCallback } from "react";
+import { SearchBar } from "./components/SearchBar";
 
 function App() {
+  const handleSearch = useCallback((query: string) => {
+    console.log("Search:", query);
+  }, []);
+
   return (
-    <div className="App">
-      <h1>Registry Challenge</h1>
-      <p>
-        Welcome to the Registry Challenge! This is a simple React application
-        designed to test your skills in building a registry system. You can add,
-        view, and manage entries in the registry. Get started by adding your
-        first entry!
-      </p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-green-100 flex flex-col items-center justify-center px-4">
+      <div className="text-center mb-8 space-y-4">
+        <h1 className="text-5xl font-light text-gray-900 leading-tight">
+          Explore the
+          <br />
+          Container Registry
+=        </h1>
+        <p className="text-gray-500 text-base max-w-md mx-auto">
+          Search and browse Docker repositories, explore tags, sizes, and pull
+          commands — all in one place.
+        </p>
+      </div>
+
+      <SearchBar onSearch={handleSearch} />
     </div>
   );
 }
