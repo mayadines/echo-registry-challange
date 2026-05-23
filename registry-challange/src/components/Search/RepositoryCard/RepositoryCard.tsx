@@ -5,10 +5,11 @@ import { RepositoryCardBody } from "./RepositoryCardBody";
 import { RepositoryCardFooter } from "./RepositoryCardFooter";
 
 export function RepositoryCard({ repo }: RepositoryCardProps) {
-  const isOfficial = repo.trusted_content?.sources?.includes("official") ?? false;
-  const isVerified =
-    repo.trusted_content?.sources?.includes("verified_publisher") ?? false;
-  const description = repo.short_description || repo.description || "No description available.";
+  const firstRepo = repo.rate_plans?.[0]?.repositories?.[0];
+  const isOfficial = repo.source === "store" || firstRepo?.is_official === true;
+  const isVerified = repo.source === "verified_publisher";
+  const pullCount = firstRepo?.pull_count ?? "";
+  const description = repo.short_description || firstRepo?.description || "No description available.";
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer flex flex-col">
@@ -29,7 +30,7 @@ export function RepositoryCard({ repo }: RepositoryCardProps) {
       />
 
       <RepositoryCardFooter
-        pullCount={repo.pull_count}
+        pullCount={pullCount}
         starCount={repo.star_count}
       />
     </div>
