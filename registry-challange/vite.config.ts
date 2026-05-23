@@ -8,4 +8,14 @@ export default defineConfig({
   resolve: {
     alias: { "@": "/src" },
   },
+  server: {
+    port: 3000,
+    proxy: {
+      "/api": {
+        target: "https://hub.docker.com",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 });

@@ -1,15 +1,9 @@
-import "./App.css";
+import { Search } from "@/components/Search/Search";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Registry Challenge</h1>
-      <p>
-        Welcome to the Registry Challenge! This is a simple React application
-        designed to test your skills in building a registry system. You can add,
-        view, and manage entries in the registry. Get started by adding your
-        first entry!
-      </p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-green-100">
+      <Search />
     </div>
   );
 }
