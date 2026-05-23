@@ -1,10 +1,6 @@
 import { useCallback, useState, type SyntheticEvent } from "react";
 import { SearchIcon } from "@/icons/SearchIcon";
-
-interface SearchBarProps {
-  placeholder?: string;
-  onSearch?: (query: string) => void;
-}
+import type { SearchBarProps } from "@/types/components";
 
 export function SearchBar({
   placeholder = "Explore intelligent wellness...",
