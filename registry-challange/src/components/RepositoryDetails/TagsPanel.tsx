@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getRepoTags } from "@/api/repository";
-import { Spinner, ErrorMessage, Pagination } from "@/components/common";
+import { Spinner } from "@/components/common/Spinner";
+import { ErrorMessage } from "@/components/common/ErrorMessage";
+import { Pagination } from "@/components/common/Pagination";
 import { TagsTable } from "./TagsTable";
 import { TagsPanelHeader } from "./TagsPanelHeader";
 

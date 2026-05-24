@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { searchRepositories } from "@/api/search";
-import { RegistryTitle } from "@/components/common";
+import { RegistryTitle } from "@/components/common/RegistryTitle";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
 
 const PAGE_SIZE = 20;
 
 export function Search() {
-  const params = new URLSearchParams(window.location.search);
-
-  const [searchQuery, setSearchQuery] = useState(() => params.get("q") ?? "");
-  const [page, setPage] = useState(() => Number(params.get("page") ?? 0));
+  const [searchQuery, setSearchQuery] = useState(
+    () => new URLSearchParams(window.location.search).get("q") ?? ""
+  );
+  const [page, setPage] = useState(
+    () => Number(new URLSearchParams(window.location.search).get("page") ?? 0)
+  );
 
   const { data, isFetching, isError, error } = useQuery({
     queryKey: ["search", searchQuery, page],
@@ -19,19 +21,19 @@ export function Search() {
     enabled: !!searchQuery,
   });
 
-  const handleSearch = (query: string) => {
+  const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
     setPage(0);
     const url = query ? `?q=${encodeURIComponent(query)}` : window.location.pathname;
     history.pushState(null, "", url);
-  };
+  }, []);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     setPage(newPage);
     const url = `?q=${encodeURIComponent(searchQuery)}&page=${newPage}`;
     history.pushState(null, "", url);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, [searchQuery]);
 
   if (!searchQuery) {
     return (

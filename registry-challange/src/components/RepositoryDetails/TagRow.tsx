@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { RepoTag } from "@/types/repository";
 import { formatSize, formatDate, pullCommand } from "@/utils/format";
 
@@ -11,10 +11,15 @@ interface TagRowProps {
 export function TagRow({ tag, namespace, name }: TagRowProps) {
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
+
   const handleCopy = async () => {
     await navigator.clipboard.writeText(pullCommand(namespace, name, tag.name));
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (

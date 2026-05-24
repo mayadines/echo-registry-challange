@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRepoDetails } from "@/api/repository";
-import { Spinner, ErrorMessage } from "@/components/common";
+import { Spinner } from "@/components/common/Spinner";
+import { ErrorMessage } from "@/components/common/ErrorMessage";
 import { navigate } from "@/utils/navigate";
 import { BackButton } from "./BackButton";
 import { RepoHeader } from "./RepoHeader";
