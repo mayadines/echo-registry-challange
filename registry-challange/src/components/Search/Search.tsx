@@ -4,6 +4,7 @@ import { searchRepositories } from "@/api/search";
 import { RegistryTitle } from "@/components/common/RegistryTitle";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
+import { PopularRepositories } from "./PopularRepositories";
 
 const PAGE_SIZE = 20;
 
@@ -37,7 +38,7 @@ export function Search() {
 
   if (!searchQuery) {
     return (
-      <div className="flex flex-col items-center px-4 min-h-screen justify-center">
+      <div className="flex flex-col items-center px-4 pt-16">
         <div className="text-center mb-8 space-y-4">
           <RegistryTitle />
           <p className="text-gray-500 text-base max-w-md mx-auto">
@@ -46,6 +47,7 @@ export function Search() {
           </p>
         </div>
         <SearchBar placeholder="Search Docker repositories..." initialQuery={searchQuery} onSearch={handleSearch} />
+        <PopularRepositories />
       </div>
     );
   }

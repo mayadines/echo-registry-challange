@@ -16,7 +16,10 @@ export function RepositoryCard({ repo }: RepositoryCardProps) {
   const pullCount = firstRepo?.pull_count ?? "";
   const description = repo.short_description || firstRepo?.description || "No description available.";
 
-  const [namespace, repoName] = repo.slug.split("/");
+  const slugParts = repo.slug.split("/");
+  const rawNamespace = slugParts.length >= 2 ? slugParts[0] : "library";
+  const namespace = rawNamespace === "_" ? "library" : rawNamespace;
+  const repoName = slugParts.length >= 2 ? slugParts[1] : slugParts[0];
 
   const handleClick = () => {
     const params = new URLSearchParams(window.location.search);

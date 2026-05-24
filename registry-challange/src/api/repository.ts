@@ -8,7 +8,7 @@ export async function getRepoDetails(
   name: string
 ): Promise<RepoDetails> {
   const { data } = await apiClient.get<RepoDetails>(
-    `/api/v2/repositories/${namespace}/${name}/`
+    `/v2/repositories/${namespace}/${name}/`
   );
   return data;
 }
@@ -20,7 +20,7 @@ export async function getRepoTags(
   pageSize = 25
 ): Promise<RepoTagsResponse> {
   const { data } = await apiClient.get<RepoTagsResponse>(
-    `/api/v2/repositories/${namespace}/${name}/tags/`,
+    `/v2/repositories/${namespace}/${name}/tags/`,
     { params: { page, page_size: pageSize } }
   );
   return data;

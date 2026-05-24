@@ -14,3 +14,11 @@ export async function searchRepositories(
   );
   return data;
 }
+
+export async function getPopularRepositories(count = 10): Promise<SearchResponse> {
+  const { data } = await apiClient.get<SearchResponse>(
+    "/api/search/v3/catalog/search",
+    { params: { query: "", sort: "pull_count", order: "desc", from: 0, size: count } }
+  );
+  return data;
+}

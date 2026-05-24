@@ -16,7 +16,11 @@ export default defineConfig({
         target: "https://hub.docker.com",
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path.replace(/^\/api\/v2/, "/v2"),
+      },
+      "/v2": {
+        target: "https://hub.docker.com",
+        changeOrigin: true,
+        secure: true,
       },
     },
   },
