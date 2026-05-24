@@ -10,11 +10,13 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    strictPort: true,
     proxy: {
       "/api": {
         target: "https://hub.docker.com",
         changeOrigin: true,
         secure: true,
+        rewrite: (path) => path.replace(/^\/api\/v2/, "/v2"),
       },
     },
   },

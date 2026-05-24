@@ -1,12 +1,18 @@
 import { useCallback, useState, type SyntheticEvent } from "react";
 import { SearchIcon } from "@/icons/SearchIcon";
-import type { SearchBarProps } from "@/types/components";
+
+interface SearchBarProps {
+  placeholder?: string;
+  initialQuery?: string;
+  onSearch?: (query: string) => void;
+}
 
 export function SearchBar({
   placeholder = "Explore intelligent wellness...",
+  initialQuery = "",
   onSearch,
 }: SearchBarProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value),

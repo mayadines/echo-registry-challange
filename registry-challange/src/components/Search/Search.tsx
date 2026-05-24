@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { searchRepositories, PAGE_SIZE } from "@/api/search";
+import { searchRepositories } from "@/api/search";
 import { RegistryTitle } from "@/components/common";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
+
+const PAGE_SIZE = 20;
 
 export function Search() {
   const params = new URLSearchParams(window.location.search);
@@ -13,11 +15,9 @@ export function Search() {
 
   const { data, isFetching, isError, error } = useQuery({
     queryKey: ["search", searchQuery, page],
-    queryFn: () => searchRepositories(searchQuery, page),
+    queryFn: () => searchRepositories(searchQuery, page, PAGE_SIZE),
     enabled: !!searchQuery,
   });
-
-  const totalPages = data ? Math.ceil(data.total / PAGE_SIZE) : 0;
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -43,7 +43,7 @@ export function Search() {
             pull commands — all in one place.
           </p>
         </div>
-        <SearchBar placeholder="Search Docker repositories..." onSearch={handleSearch} />
+        <SearchBar placeholder="Search Docker repositories..." initialQuery={searchQuery} onSearch={handleSearch} />
       </div>
     );
   }
@@ -54,7 +54,7 @@ export function Search() {
         <div className="text-center mb-8">
           <RegistryTitle size="sm" />
         </div>
-        <SearchBar placeholder="Search Docker repositories..." onSearch={handleSearch} />
+        <SearchBar placeholder="Search Docker repositories..." initialQuery={searchQuery} onSearch={handleSearch} />
       </div>
       <SearchResults
         results={data?.results ?? []}
@@ -64,7 +64,7 @@ export function Search() {
         isError={isError}
         error={error?.message ?? null}
         page={page}
-        totalPages={totalPages}
+        pageSize={PAGE_SIZE}
         onPageChange={handlePageChange}
       />
     </>

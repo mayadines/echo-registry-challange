@@ -1,8 +1,20 @@
-import type { SearchResultsProps } from "@/types/components";
+import type { SearchResult } from "@/types/search";
 import { Spinner, ErrorMessage, Pagination } from "@/components/common";
 import { RepositoryCard } from "./RepositoryCard/RepositoryCard";
 
-export function SearchResults({ results, total, query, isFetching, isError, error, page, totalPages, onPageChange }: SearchResultsProps) {
+interface SearchResultsProps {
+  results: SearchResult[];
+  total: number;
+  query: string;
+  isFetching: boolean;
+  isError: boolean;
+  error: string | null;
+  page: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+}
+
+export function SearchResults({ results, total, query, isFetching, isError, error, page, pageSize, onPageChange }: SearchResultsProps) {
   if (isFetching) {
     return <Spinner />;
   }
@@ -29,7 +41,7 @@ export function SearchResults({ results, total, query, isFetching, isError, erro
           <RepositoryCard key={repo.id} repo={repo} />
         ))}
       </div>
-      <Pagination page={page} totalPages={totalPages} onPageChange={onPageChange} />
+      <Pagination page={page} total={total} pageSize={pageSize} onPageChange={onPageChange} />
     </div>
   );
 }
